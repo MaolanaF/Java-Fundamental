@@ -80,13 +80,16 @@ public class ATM {
          switch (mainMenuSelection) {
             // user chose to perform one of three transaction types
             case BALANCE_INQUIRY: 
-            case WITHDRAWAL: 
+                currentTransaction = createTransaction( mainMenuSelection );
+                currentTransaction.execute(); // execute transaction
+            break;
+            case WITHDRAWAL:
+                currentTransaction = createTransaction( mainMenuSelection );
+                currentTransaction.execute(); // execute transaction
+            break;
             case DEPOSIT:
-                currentTransaction = 
-                    createTransaction( mainMenuSelection );
-                    currentTransaction.execute(); // execute transaction
-                           
-                
+                currentTransaction = createTransaction( mainMenuSelection );
+                currentTransaction.execute(); // execute transaction    
             break;    
             case EXIT: // user chose to terminate session
                screen.displayMessageLine("\nExiting the system...");
@@ -118,19 +121,14 @@ public class ATM {
       // determine which type of Transaction to create     
       switch (type) {
          case BALANCE_INQUIRY: // create new BalanceInquiry transaction
-            temp = new BalanceInquiry(
-               currentAccountNumber, screen, bankDatabase);
+            temp = new BalanceInquiry(currentAccountNumber, screen, bankDatabase);
             break;
          case WITHDRAWAL: // create new Withdrawal transaction
-            temp = new Withdrawal(
-                    currentAccountNumber, screen, bankDatabase, keypad, cashDispenser);
+            temp = new Withdrawal(currentAccountNumber, screen, bankDatabase, keypad, cashDispenser);
             break; 
          case DEPOSIT: // create new Deposit transaction 
-            temp = new Deposit(
-                         currentAccountNumber, screen, bankDatabase, keypad, depositSlot);
+            temp = new Deposit(currentAccountNumber, screen, bankDatabase, keypad, depositSlot);
             break;
-            
-          
       }
 
       return temp; // return the newly created object
